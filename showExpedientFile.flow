@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<flow id="showExpedientFile" stateless="true" secured="false">
+    <description></description>
+    <category></category>
+    <strictNavigation>false</strictNavigation>
+    <initNodeId x="-143" y="-301">ShowExpedientFileService</initNodeId>
+    <viewNode id="viewExpedientFile" unauthorizedAction="" decorator=""
+        x="500" y="138" size="86">
+        <ingResource src="/views/files/viewExpedientFile.xhtml"/>
+    </viewNode>
+    <serviceNode id="telephonyInsertCall" unauthorizedAction="" x="484"
+        y="-278" size="94">
+        <ingResource src="sme-lending-core[telephonyInsertCall]"/>
+    </serviceNode>
+    <serviceNode id="GetLDApplicationProcessStatusService"
+        unauthorizedAction="" x="207" y="-280" size="184">
+        <ingResource src="sme-lending-core[getLDApplicationProcessStatusService]"/>
+    </serviceNode>
+    <serviceNode id="ResetLdApplicationSMEService" unauthorizedAction=""
+        x="678" y="-279" size="162">
+        <ingResource src="sme-lending-core[resetLdApplicationSMEService]"/>
+    </serviceNode>
+    <serviceNode id="ShowExpedientFileService" unauthorizedAction=""
+        x="6" y="-305" size="125">
+        <ingResource src="sme-lending-core[showExpedientFileService]"/>
+    </serviceNode>
+    <serviceNode id="insertCirbeOrAsnefService" unauthorizedAction=""
+        x="876" y="42" size="137">
+        <ingResource src="sme-lending-core[insertCirbeOrAsnefService]"/>
+    </serviceNode>
+    <serviceNode id="ReopenDenyExpedient" unauthorizedAction="" x="885"
+        y="366" size="136">
+        <ingResource src="sme-lending-core[reopenDenyExpedient]"/>
+    </serviceNode>
+    <serviceNode id="taskPaginateServiceByExp" unauthorizedAction=""
+        x="438" y="-112" size="127">
+        <ingResource src="sme-lending-core[taskPaginateServiceByExp]"/>
+    </serviceNode>
+    <serviceNode id="sme-lending-core[reopenLdApplicationService]"
+        unauthorizedAction="" x="825" y="140" size="135">
+        <ingResource src="sme-lending-core[reopenLdApplicationService]"/>
+    </serviceNode>
+    <serviceNode id="signalProcessService" unauthorizedAction="" x="76"
+        y="-42" size="99">
+        <ingResource src="sme-lending-core[signalProcessService]"/>
+    </serviceNode>
+    <serviceNode id="backToAgencyRedirectionService"
+        unauthorizedAction="" x="226" y="-96" size="176">
+        <ingResource src="sme-lending-core[backToAgencyRedirectionService]"/>
+    </serviceNode>
+    <serviceNode id="getListLdApplicationStatusService"
+        unauthorizedAction="" x="38" y="-175" size="161">
+        <ingResource src="sme-lending-core[getListLdApplicationStatusService]"/>
+    </serviceNode>
+    <serviceNode id="getPendingCallbacksService" unauthorizedAction=""
+        x="686" y="21" size="148">
+        <ingResource src="sme-lending-core[getPendingCallbacksService]"/>
+    </serviceNode>
+    <serviceNode id="GetLdApplicationSMEUnifiedService"
+        unauthorizedAction="" x="665" y="-137" size="190">
+        <ingResource src="sme-lending-core[getLdApplicationSMEUnifiedService]"/>
+    </serviceNode>
+    <serviceNode id="sme-lending-core[startCancelDenyProcInstService]"
+        unauthorizedAction="" x="823" y="259" size="167">
+        <ingResource src="sme-lending-core[startCancelDenyProcInstService]"/>
+    </serviceNode>
+    <serviceNode id="ShowDesistimientoLinkOrNot" unauthorizedAction=""
+        x="470" y="21" size="156">
+        <ingResource src="sme-lending-core[showDesistimientoLinkOrNot]"/>
+    </serviceNode>
+    <flowNode id="R-showExpedientFile" x="55" y="421" size="100"/>
+    <flowNode id="R-showDocumentExpedient" x="106" y="649" size="132"/>
+    <flowNode id="R-assignGuarantor" x="122" y="95" size="98"/>
+    <flowNode id="R-assignClient" x="109" y="195" size="80"/>
+    <flowNode id="R-startTask" x="754" y="554" size="80"/>
+    <flowNode id="R-showApplicationIncidences" x="406" y="683" size="139"/>
+    <flowNode id="R-home" x="768" y="422" size="100"/>
+    <flowNode id="R-showApplicationPreFirma" x="559" y="657" size="130"/>
+    <flowNode id="R-flowsDispatcher" x="49" y="306" size="87"/>
+    <flowNode id="R-showExpedientRisk" x="275" y="673" size="103"/>
+    <transition from="viewExpedientFile"
+        to="sme-lending-core[reopenLdApplicationService]"
+        id="executeReopenExpedient" bendpoints=""/>
+    <transition from="viewExpedientFile" to="opt:R-home" id="home" bendpoints=""/>
+    <transition from="taskPaginateServiceByExp" to="telephonyInsertCall"
+        id="ok" bendpoints=""/>
+    <transition from="viewExpedientFile" to="opt:R-showExpedientFile"
+        id="showExpedientFile" bendpoints=""/>
+    <transition from="ResetLdApplicationSMEService"
+        to="GetLdApplicationSMEUnifiedService" id="ok" bendpoints=""/>
+    <transition from="ShowDesistimientoLinkOrNot" to="viewExpedientFile"
+        id="ok" bendpoints=""/>
+    <transition from="viewExpedientFile" to="opt:R-flowsDispatcher"
+        id="flowsDispatcher" bendpoints=""/>
+    <transition from="viewExpedientFile" to="insertCirbeOrAsnefService"
+        id="cirbeRequest" bendpoints=""/>
+    <transition from="ShowExpedientFileService"
+        to="GetLDApplicationProcessStatusService" id="ok" bendpoints=""/>
+    <transition from="viewExpedientFile"
+        to="opt:R-showDocumentExpedient" id="showDocumentExpedient" bendpoints=""/>
+    <transition from="getPendingCallbacksService"
+        to="ShowDesistimientoLinkOrNot" id="ok" bendpoints=""/>
+    <transition from="viewExpedientFile" to="opt:R-showExpedientRisk"
+        id="showExpedientRisk" bendpoints=""/>
+    <transition from="viewExpedientFile"
+        to="sme-lending-core[startCancelDenyProcInstService]"
+        id="executeCancelExpedient" bendpoints=""/>
+    <transition from="signalProcessService"
+        to="getListLdApplicationStatusService" id="ok" bendpoints=""/>
+    <transition from="getListLdApplicationStatusService"
+        to="GetLDApplicationProcessStatusService" id="ok" bendpoints=""/>
+    <transition from="viewExpedientFile" to="opt:R-assignGuarantor"
+        id="assignGuarantor" bendpoints=""/>
+    <transition from="GetLDApplicationProcessStatusService"
+        to="taskPaginateServiceByExp" id="ok" bendpoints=""/>
+    <transition from="telephonyInsertCall"
+        to="ResetLdApplicationSMEService" id="ok" bendpoints=""/>
+    <transition from="viewExpedientFile" to="opt:R-startTask"
+        id="startTask" bendpoints=""/>
+    <transition from="GetLdApplicationSMEUnifiedService"
+        to="getPendingCallbacksService" id="ok" bendpoints=""/>
+    <transition from="viewExpedientFile"
+        to="opt:R-showApplicationIncidences" id="showIncidences" bendpoints=""/>
+    <transition from="viewExpedientFile"
+        to="backToAgencyRedirectionService" id="backToAgencyRedirection" bendpoints=""/>
+    <transition from="viewExpedientFile"
+        to="opt:R-showApplicationPreFirma" id="showPreFirma" bendpoints=""/>
+    <transition from="taskPaginateServiceByExp"
+        to="ShowDesistimientoLinkOrNot" id="refresh" bendpoints=""/>
+    <transition from="viewExpedientFile" to="opt:R-assignClient"
+        id="assignClient" bendpoints=""/>
+    <transition from="viewExpedientFile" to="signalProcessService"
+        id="signalProcess" bendpoints=""/>
+    <transition from="viewExpedientFile" to="ReopenDenyExpedient"
+        id="executeReopenDenyExpedient" bendpoints=""/>
+</flow>
